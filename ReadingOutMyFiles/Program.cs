@@ -11,17 +11,49 @@ string[] dirs = Directory.GetDirectories(repos);
     {
         Console.WriteLine(dir);
         string[] files = Directory.GetFiles(dir);
+        string[] SubDirs =Directory.GetDirectories(dir);
         foreach (string file in files)
         {
             Console.WriteLine(file);
-            //FilePath(file);
+         
+        }
+        foreach (string subdir in SubDirs)
+        {
+            Console.WriteLine(subdir);
+            string[] subfiles = Directory.GetFiles(subdir);
+            Console.WriteLine(subfiles);
+
         }
     }
 }
 
 
-FilePath(@"C:\repos");
-FilePath(@"C: \Users\max - s\Desktop");
+void DisplayAllFolders(string folder, bool displayFiles = false)
+{
+    string[] folders = Directory.GetDirectories(folder);
+    foreach(string f in folders)
+    {
+        Console.WriteLine(f);
+        if (displayFiles)
+            DisplayAllFilesInFolder(f);
+        DisplayAllFolders(f);
+
+    }
+}
+
+void DisplayAllFilesInFolder(string folder)
+{
+    string[] files = Directory.GetFiles(folder);
+    foreach(string file in files)
+    {
+        Console.WriteLine(file);
+        
+    }
+}
+
+//FilePath(@"C:\repos");
+DisplayAllFolders(@"C:\repos", true);
+
 
 //Recursive call to look into the folder when you give the folder name
 
